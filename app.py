@@ -5,7 +5,10 @@ import streamlit as st
 from dotenv import load_dotenv
 
 from tj_chart import GENRES, get_chart
-from youtube_search import search_official_candidates
+from youtube_search import (
+    search_official_candidates,
+    QuotaExceededError,
+)
 from youtube_playlist import create_from_tracks
 from pathlib import Path
 from dotenv import load_dotenv
@@ -76,6 +79,13 @@ if chart is not None:
                     "score": best["score"] if best else 0,
                     "url": best["url"] if best else "",
                 })
+            except QuotaExceededError as exc:
+                st.error(str(exc))
+                st.warning(
+                    "검색을 중단했습니다. "
+                    "할당량 초기화 후 다시 검색해 주세요."
+                )
+                st.stop()
             except Exception as exc:
                 results.append({
                     "rank": int(row["rank"]),

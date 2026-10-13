@@ -4,12 +4,17 @@ __pycache__/
 *$py.class
 .env
 credentials.json
+credentials_backup.json
 token.json
 __pycache__/
 *.pyc
 .streamlit/secrets.toml
 data/cache/*
-
+.env
+credentials.json
+token.json
+.oauth_state
+.youtube_search_cache.sqlite3
 # C extensions
 *.so
 
